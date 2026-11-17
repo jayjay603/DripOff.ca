@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Catalog editor — DripOff.ca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/sizes.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <header class="topbar"><a class="wordmark" href="/">DripOff<span>.ca</span></a><div class="header-actions"><span class="private-label">Private catalog editor</span><button id="signOut" class="secondary sign-out" type="button" hidden>Sign out</button></div></header>
+  <main id="signInView" class="login-wrap" hidden>
+    <form id="signInForm" class="login-card">
+      <p class="eyebrow">SELLER ACCESS</p><h1>Seller access</h1><p class="lede">Enter your access code to manage the catalog.</p>
+      <label class="field">Access code<input id="loginCode" name="code" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required></label>
+      <p id="loginError" class="login-error" role="alert"></p>
+      <button id="signInButton" class="primary" type="submit">Sign in</button>
+    </form>
+  </main>
+  <main id="adminView" class="layout" hidden>
+    <section class="intro">
+      <div><p class="eyebrow">SELLER TOOLS</p><h1>Your products</h1><p class="lede">Add photos and keep your catalog up to date.</p></div>
+      <button id="newProduct" class="primary" type="button"><span aria-hidden="true">＋</span> Add product</button>
+    </section>
+    <p id="notice" class="notice" role="status" aria-live="polite"></p>
+    <section id="productList" class="product-list" aria-label="Products"></section>
+  </main>
+
+  <dialog id="editor" class="editor">
+    <form id="productForm" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">PRODUCT DETAILS</p><h2 id="formTitle">Add product</h2></div><button type="button" class="icon-button" id="closeEditor" aria-label="Close">×</button></div>
+      <label class="field">Product name<input id="name" name="name" required maxlength="120" placeholder="e.g. Classic runner"></label>
+      <div class="field-row">
+        <div><div class="field"><label for="brandTrigger">Brand</label><div class="picker" id="brandPicker"><select id="brand" name="brand" hidden></select><button id="brandTrigger" class="picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="brandMenu"><span class="picker-value"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div id="brandMenu" class="picker-menu" role="listbox" aria-label="Brand" hidden></div></div></div><button id="showNewBrand" class="brand-add-toggle" type="button">＋ New brand</button></div>
+        <div><div class="field"><label for="categoryTrigger">Category</label><div class="picker" id="categoryPicker"><select id="category" name="category" hidden></select><button id="categoryTrigger" class="picker-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="categoryMenu"><span class="picker-value"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div id="categoryMenu" class="picker-menu" role="listbox" aria-label="Category" hidden></div></div></div><button id="showNewCategory" class="brand-add-toggle" type="button">＋ New category</button></div>
+      </div>
+      <div id="newBrandFields" class="new-brand-fields" hidden><label class="field">New brand name<input id="newBrandName" maxlength="80" placeholder="e.g. New label"></label><label class="field">Logo (optional)<input id="newBrandLogo" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label><button id="createBrand" class="secondary" type="button">Add brand</button></div>
+      <div id="newCategoryFields" class="new-brand-fields" hidden><label class="field">New category name<input id="newCategoryName" maxlength="60" placeholder="e.g. Bags"></label><button id="createCategory" class="secondary" type="button">Add category</button></div>
+      <fieldset class="field sizes-field"><legend>Available sizes</legend><div id="sizes" class="size-options"></div></fieldset>
+      <div class="colorways-head"><div><h3>Colorways & photos</h3><p>Upload your ready-to-show images. Photos appear as uploaded; white-background product photos work best.</p></div><button id="addColorway" class="secondary" type="button">＋ Colorway</button></div>
+      <div id="colorways" class="colorways"></div>
+      <div class="dialog-actions"><button type="button" id="cancelEditor" class="secondary">Cancel</button><button id="saveProduct" class="primary" type="submit">Save product</button></div>
+    </form>
+  </dialog>
+  <input id="filePicker" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden>
+  <script src="assets/js/sizes.js"></script>
+  <script src="assets/js/supabase.js?v=20261022-category"></script>
+  <script>if(['127.0.0.1','localhost'].includes(location.hostname))document.write('<script src="/.local/demo.js?v=20261117-code"><\/script>');</script>
+  <script src="assets/js/admin.js?v=20261022-category"></script>
+</body>
+</html>
