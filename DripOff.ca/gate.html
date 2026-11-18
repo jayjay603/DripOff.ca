@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Seller access — DripOff.ca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <header class="topbar"><a class="wordmark" href="/">DripOff<span>.ca</span></a><span class="private-label">Private area</span></header>
+  <main class="login-wrap">
+    <form id="gateForm" class="login-card">
+      <p class="eyebrow">SELLER ACCESS</p><h1>Your code</h1>
+      <p class="lede">Enter your access code to open the catalog editor.</p>
+      <label class="field">Access code<input id="accessCode" name="code" type="password" autocomplete="off" autocapitalize="none" spellcheck="false" required autofocus></label>
+      <p id="gateError" class="login-error" role="alert"></p>
+      <button id="gateButton" class="primary" type="submit">Open editor</button>
+    </form>
+  </main>
+  <script src="assets/js/supabase.js?v=20261022-category"></script>
+  <script>if(['127.0.0.1','localhost'].includes(location.hostname))document.write('<script src="/.local/demo.js?v=20261117-code"><\/script>');</script>
+  <script>
+    (() => {
+      const form = document.getElementById('gateForm');
+      const error = document.getElementById('gateError');
+      const button = document.getElementById('gateButton');
+      // Already signed in? Skip the prompt.
+      CatalogStore.ensureEditor().then(() => location.replace('/admin.html')).catch(() => {});
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        error.textContent = '';
+        button.disabled = true;
+        try {
+          await CatalogStore.signIn(document.getElementById('accessCode').value.trim());
+          location.replace('/admin.html');
+        } catch (failure) {
+          error.textContent = failure.message || 'That code was not accepted. Try again.';
+          button.disabled = false;
+          document.getElementById('accessCode').focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
